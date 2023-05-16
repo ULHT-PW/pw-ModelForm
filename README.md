@@ -14,7 +14,7 @@ class Tarefa(models.Model):
         return self.titulo
  ```
 
-ModelForm permite criar um formulário associado a uma modelo, com especificações detalhadas do que mostrar no formulário. Em baixo está o código para criação de um formulário. 
+ModelForm permite criar um formulário associado à classe Tarefa, com especificações detalhadas do que deve ser mostrado no formulário. Em baixo está o código para criação de um formulário, com descrição dos seus elementos. 
 
 ```Python
 from django import forms
