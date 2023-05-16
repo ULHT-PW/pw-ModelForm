@@ -14,7 +14,7 @@ class Tarefa(models.Model):
         return self.titulo
  ```
 
-ModelForm permite criar um formulário associado a uma modelo, com especificações detalhadas do que mostrar no formulário. Em baixo está o código para criação de um formulário
+ModelForm permite criar um formulário associado a uma modelo, com especificações detalhadas do que mostrar no formulário. Em baixo está o código para criação de um formulário. 
 
 ```Python
 from django import forms
@@ -23,26 +23,30 @@ from .models import Tarefa
 
 class TarefaForm(ModelForm):
     class Meta:
-        model = Tarefa
+        model = Tarefa   # especifica a classe de models.py à qual este formulário está associado
+                
+        # fields permite especificar os campos da classe que queremos que apareçam no formulário. 
+        #   - '__all__' apresenta todos.
+        #   - podemos ter um subset: fields = ['titulo', 'prioridade']
+        # alternativamente, pode-se usar a variável exclude para especificar os campos que se pretendem excluir do formulário 
         fields = '__all__'
-        
-        # widgets é um dicionário. A cada propriedade da classe (titulo, prioridade, concluido, etc), 
-        # permite configurar o correspondente elemento input no formulário, um dicionario de atributos tais como propriedades ou classes,
-        # para formatação de cada campo do formulário.
+   
+        # Para um conjunto de propriedade da classe (titulo, prioridade, concluido, etc), 
+        # o dicionário widgets permite configurar o elemento HTML input correspondente, 
+        # através de um dicionario de atributos de formatação (especificação de classes, placeholder, propriedades, etc).
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'descrição da tarefa...'}),
             'prioridade': forms.NumberInput(attrs={'class': 'form-control', 'max': 3, 'min': 1}),
         }
 
-
-        # labels perrmite especificar o texto a exibir junto à janela de inserção
+       # o dicionário labels especifica o texto a exibir junto à janela de inserção
         labels = {
             'titulo': 'Título',
             'concluido': 'Concluída',
         }
 
 
-        # help_texts são textos auxiliares apresentados por baixo de uma janela de inserção do formulário
+       # o dicionário help_texts contém, para um atributo, um texto auxiliar a apresentar por baixo da janela de inserção
         help_texts = {
             'prioridade': 'prioridade: baixa=1, media=2, alta=3',
         }
